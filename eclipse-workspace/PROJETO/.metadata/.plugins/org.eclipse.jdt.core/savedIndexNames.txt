@@ -1,0 +1,20 @@
+INDEX VERSION 1.134+C:\Users\samue\eclipse-workspace\PROJETO\.metadata\.plugins\org.eclipse.jdt.core
+1030106067.index
+60806895.index
+972225247.index
+3617756495.index
+2502902422.index
+2394892661.index
+477757082.index
+3058958447.index
+2872463901.index
+308704107.index
+1865797976.index
+1784105589.index
+1770646285.index
+595205646.index
+3619081748.index
+1648583439.index
+3959137331.index
+1454463971.index
+420792115.index
