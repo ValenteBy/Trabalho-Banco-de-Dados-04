@@ -1,0 +1,52 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class AdicionarMaeClasse {
+
+	public static String adicionarMae() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o nome da mãe: ");
+		String nome = entrada.nextLine();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "INSERT INTO mae (nome) VALUES (?)";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.execute();
+		
+		System.out.println("Mãe colocada na tabela com sucesso!");
+		entrada.close();
+		
+		return null;
+	}
+	
+	public static void corrigirNome() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o código da mãe que deseja corrigir: ");
+		int cod = entrada.nextInt();
+		
+		System.out.println("Informe o nome corrigido: ");
+		String nome = entrada.next();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "UPDATE mae set nome = ? where codigo = ?";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.setInt(2, cod);
+		stmt.execute();
+		
+		System.out.println("Nome atualizado!!");
+		entrada.close();
+		
+	}
+}

@@ -1,0 +1,37 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class AdicionarFilhoClasse {
+	
+	public static String adicionarSomenteUmFilho() throws SQLException {
+		
+        Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o nome do filho: ");
+		String nome = entrada.nextLine();
+		
+		System.out.println("Informe o código do de sua mãe: ");
+		int    id   = entrada.nextInt();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "INSERT INTO filhos (nome, mae_cod) VALUES (?, ?)";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.setInt(2, id);
+		stmt.execute();
+		
+		System.out.println("Filho colocado na tabela com sucesso!");
+		entrada.close();
+		
+		return null;
+	}
+	
+	
+
+}

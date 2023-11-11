@@ -1,0 +1,44 @@
+package jdbc;
+
+import java.sql.SQLException;
+
+public class principal {
+
+	public static void main(String[] args) throws SQLException {
+		
+		//01
+		//Criando Banco de Dados
+		CriarBanco.criandoBanco();
+		
+		//Crianção das tabelas mães e filhos (Relação de 1(mães) para n(filhos))
+		CriarTabelaMae.criarTabelamae();
+		
+		CriarTabelaFilhos.criartabelafilho();
+		
+		//02
+		//Metodo adicionar
+		System.out.println("01 - METODO ADICIONAR(MAE)");
+		AdicionarMaeClasse.adicionarMae();
+		
+		System.out.println("01 - METODO ADICIONAR(FILHO)");
+		AdicionarFilhoClasse.adicionarSomenteUmFilho();
+		
+		//metodo remover
+		System.out.println("01 - METODO REMOVER(FILHO)");
+		AdicionarFilhoClasse.removerFilho();
+		
+		//metodo atualizar
+		System.out.println("01 - METODO ATUALIZAR(MÃE)");
+		AdicionarMaeClasse.corrigirNome();
+		
+		//metodo Pesquisar + questão 04
+		System.out.println("METODO PESQUISAR + QUESTÃO 04(AS DUAS SE COMPLETAM)");
+		AdicionarMaeClasse.pesquisarFilhos();
+		
+		//03
+		System.out.println("03 - ARRAY DE ADICIONAR 5 OBJETOS(FILHOS)");
+		AdicionarFilhoClasse.arrayFilho();
+		
+	}
+
+}

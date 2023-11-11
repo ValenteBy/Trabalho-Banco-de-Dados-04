@@ -1,0 +1,93 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AdicionarMaeClasse {
+
+	public static String adicionarMae() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o nome da mãe: ");
+		String nome = entrada.nextLine();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "INSERT INTO mae (nome) VALUES (?)";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.execute();
+		
+		System.out.println("Mãe colocada na tabela com sucesso!");
+		entrada.close();
+		
+		return null;
+	}
+	
+	public static void corrigirNome() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o nome corrigido: ");
+		String nome = entrada.nextLine();
+		
+		System.out.println("Informe o código da mãe que deseja corrigir: ");
+		int cod = entrada.nextInt();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "UPDATE mae set nome = ? where codigo = ?";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.setInt(2, cod);
+		stmt.execute();
+		
+		System.out.println("Nome atualizado!!");
+		entrada.close();
+		
+	}
+	
+	public static void pesquisarFilhos() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		
+		System.out.println("Fale ID da mãe para mostrar todos os seus filhos: ");
+		int cod = entrada.nextInt();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		Statement  stmt = conexao.createStatement();
+		
+		String sql = "SELECT * FROM filhos where ? = filhos.mae_cod";
+		
+		((PreparedStatement) stmt).setInt(1, cod);
+
+		ResultSet resultado = stmt.executeQuery(sql);
+		
+		List<Filho> filhos = new ArrayList<>();
+		
+		while(resultado.next()) {
+			int codigo = resultado.getInt("codigo");
+			String nome = resultado.getString("nome");
+			int mae = resultado.getInt("codigomae");
+			filhos.add(new Filho(codigo, nome, mae));
+		}
+		
+		int qtdfilhos = 0;
+		for(Filho f: filhos) {
+			System.out.println(qtdfilhos + " - " + f.getNome());
+			qtdfilhos++;
+		}
+		
+		System.out.println("Nome atualizado!!");
+		stmt.close();
+		entrada.close();
+	}
+}

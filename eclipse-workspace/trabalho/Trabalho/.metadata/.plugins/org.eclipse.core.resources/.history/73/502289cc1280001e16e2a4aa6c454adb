@@ -1,0 +1,16 @@
+package jdbc;
+
+public class CriarTabelaMateria {
+
+	public static void main(String[] args) {
+
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "CREATE TABLE IF NOT EXIST materia ("
+				+ "codigo INT AUTO_INCREMENT PRIMARY KEY,"
+				+ "nome VARCHAR(80) NOT NULL,"
+				+ ""
+				+ ")";
+	}
+
+}

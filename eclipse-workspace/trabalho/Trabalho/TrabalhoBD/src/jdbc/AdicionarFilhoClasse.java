@@ -1,0 +1,86 @@
+package jdbc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class AdicionarFilhoClasse {
+	
+	public static String adicionarSomenteUmFilho() throws SQLException {
+		
+        Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o nome do filho: ");
+		String nome = entrada.next();
+		
+		System.out.println("Informe o código do de sua mãe: ");
+		int    id   = entrada.nextInt();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "INSERT INTO filhos (nome, mae_cod) VALUES (?, ?)";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setString(1, nome);
+		stmt.setInt(2, id);
+		stmt.execute();
+		
+		System.out.println("Filho colocado na tabela com sucesso!");
+		//entrada.close();
+		
+		return null;
+	}
+	
+	
+	public static void removerFilho() throws SQLException {
+		
+        Scanner entrada = new Scanner(System.in);
+		
+		System.out.println("Informe o código do filho que deseja removar: ");
+		int id = entrada.nextInt();
+		
+		Connection conexao = FabricaConexao.getConexao();
+		
+		String sql = "DELETE FROM filhos WHERE cod = ?";
+		
+		PreparedStatement stmt = conexao.prepareStatement(sql);
+		stmt.setInt(1, id);
+		stmt.execute();
+		
+		System.out.println("Filho retirado com sucesso!!");
+		//entrada.close();
+		
+	}
+	
+	public static void arrayFilho() throws SQLException {
+		Scanner entrada = new Scanner(System.in);
+		
+		Filho filhos[] = new Filho[5]; 
+		
+		Connection conexao = FabricaConexao.getConexao();
+
+		
+		for(int i = 0; i < 5; i++) {
+			System.out.println("Informe o nome: ");
+			String nome = entrada.next();
+			
+			System.out.println("E o ID de sua mãe: ");
+			int id      = entrada.nextInt();
+			
+			filhos[i] = new Filho(nome, id);
+		}
+		
+		for(int i = 0; i < 5; i++) {
+			
+			String sql = "INSERT INTO filhos (nome, cod_mae) VALUES (?, ?)";
+			PreparedStatement stmt = conexao.prepareStatement(sql);
+			stmt.setString(1, filhos[i].getNome());
+			stmt.setInt(2, filhos[i].getCodigo());
+			stmt.execute();
+		}
+		//entrada.close();
+	}
+}
