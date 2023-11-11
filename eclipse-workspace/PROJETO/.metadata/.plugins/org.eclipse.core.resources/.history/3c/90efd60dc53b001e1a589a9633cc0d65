@@ -1,5 +1,0 @@
-package campominado.excecao;
-
-public class SairException {
-
-}
